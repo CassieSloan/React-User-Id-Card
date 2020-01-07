@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 
 class Login extends Component {
-    state = { 
-        username: this.props.username, 
-        password: this.props.password
+
+    onInputChange = (event) => {
+        const { onLoginChange } = this.props;
+        const value = event.target.value;
+        const name = event.target.name;
+
+        onLoginChange({ [name]: value })
     }
 
     render() {
-        const { username, password } = this.state
+        const { username, email, } = this.props;
 
         return(
             <>
@@ -15,20 +19,24 @@ class Login extends Component {
                 <input 
                     type="text"
                     value={ username }
+                    onChange={ this.onInputChange } 
+                    name="username"
                 />
 
-                <h3>Password</h3>
+                <h3>Email</h3>
                 <input 
                     type="text"
-                    value={ password }
+                    value={ email }
+                    onChange={ this.onInputChange }
+                    name="email"
                 />
             </>
         )
     }
-    
+
     static defaultProps = {
         username: "Guest",
-        password: "123456"
+        email: "guest@example.com"
     }
 }
 
